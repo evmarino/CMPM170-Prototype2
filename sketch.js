@@ -17,7 +17,7 @@ function draw(){
     background(221,199,160);
     
     fill(255);
-    ellipse(x,y,50,50);
+    ellipse(x,y,25,25);
 
     handleKeys();
 
