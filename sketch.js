@@ -20,9 +20,9 @@ function draw(){
 
 function handleKeys(){
 
-    if(keyIsDown(A || LEFT_ARROW)){ x = x - 5; }
-    if(keyIsDown(D ||RIGHT_ARROW)){ x = x + 5;}
-    if(keyIsDown(W ||UP_ARROW)){ y = y - 5;   }
-    if(keyIsDown(S ||DOWN_ARROW)){ y = y + 5; }
+    if(keyIsDown(A)){ x = x - 5;}
+    if(keyIsDown(D)){ x = x + 5;}
+    if(keyIsDown(W)){ y = y - 5;}
+    if(keyIsDown(S)){ y = y + 5;}
 
 }
