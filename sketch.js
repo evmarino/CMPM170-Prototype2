@@ -1,10 +1,11 @@
-let x;
-let y;
+let x; let y;
 
-const W = 87;
-const A = 65;
-const S = 83;
-const D = 68;
+const W = 87; const A = 65; const S = 83; const D = 68; const R = 82;
+
+let ringRadius = 0;
+let ringGrowing = false;
+const RING_MAX = 140;
+const RING_SPEED = 4;
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
@@ -32,6 +33,19 @@ function draw(){
     strokeWeight(3);
     rectMode(CENTER);
     rect(width * 0.48 , height/2, 500, 200);
+
+    if (ringGrowing) {
+    noFill();
+    stroke(0);
+    strokeWeight(3);
+    ellipse(x, y, ringRadius * 2, ringRadius * 2);
+    ringRadius += RING_SPEED;
+
+    if (ringRadius > RING_MAX) {
+      ringGrowing = false;
+      ringRadius = 0;
+    }
+  }
     
 }
 
@@ -41,5 +55,10 @@ function handleKeys(){
     if(keyIsDown(D)){ x = x + 5;}
     if(keyIsDown(W)){ y = y - 5;}
     if(keyIsDown(S)){ y = y + 5;}
+
+    if (keyIsDown(R)) { 
+    ringGrowing = true;
+    ringRadius = 28; 
+}
 
 }
