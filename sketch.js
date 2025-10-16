@@ -10,12 +10,29 @@ function setup(){
     createCanvas(windowWidth, windowHeight);
     x = width/2;
     y = height/2; 
+
 }
 
 function draw(){
     background(221,199,160);
+    
+    fill(255);
     ellipse(x,y,50,50);
+
     handleKeys();
+
+    noFill();
+    stroke(0);
+    strokeWeight(3);
+    rectMode(CENTER);
+    rect(width * 0.8 , height/2, 400, 600);
+
+    noFill();
+    stroke(0);
+    strokeWeight(3);
+    rectMode(CENTER);
+    rect(width * 0.48 , height/2, 500, 200);
+    
 }
 
 function handleKeys(){
