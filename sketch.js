@@ -1,6 +1,11 @@
 let x;
 let y;
 
+const W = 87;
+const A = 65;
+const S = 83;
+const D = 68;
+
 function setup(){
     createCanvas(windowWidth, windowHeight);
     x = width/2;
@@ -15,9 +20,9 @@ function draw(){
 
 function handleKeys(){
 
-    if(keyIsDown(LEFT_ARROW)){ x = x - 5; }
-    if(keyIsDown(RIGHT_ARROW)){ x = x + 5;}
-    if(keyIsDown(UP_ARROW)){ y = y - 5;   }
-    if(keyIsDown(DOWN_ARROW)){ y = y + 5; }
+    if(keyIsDown(A || LEFT_ARROW)){ x = x - 5; }
+    if(keyIsDown(D ||RIGHT_ARROW)){ x = x + 5;}
+    if(keyIsDown(W ||UP_ARROW)){ y = y - 5;   }
+    if(keyIsDown(S ||DOWN_ARROW)){ y = y + 5; }
 
 }
