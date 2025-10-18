@@ -15,6 +15,7 @@ function setup(){
 }
 
 function draw(){
+  
     background(221,199,160);
     
     fill(255);
@@ -57,8 +58,8 @@ function handleKeys(){
     if(keyIsDown(S)){ y = y + 5;}
 
     if (keyIsDown(R)) { 
-    ringGrowing = true;
-    ringRadius = 28; 
-}
+      ringGrowing = true;
+      ringRadius = 28; 
+    }
 
 }
