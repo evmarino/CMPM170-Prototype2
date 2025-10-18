@@ -14,13 +14,15 @@ class Collider{
             [COL.H]:0,
             [COL.DX]:0,
             [COL.DY]:0,
-            [COL.ON_X]: [],
-            [COL.ON_Y]: [],
+            [COL.ON_X]: {},
+            [COL.ON_Y]: {},
             [COL.TRIGGER]:false
         };
-        for (x in this.vars){
-            if (selections[x] === undefined)
-                continue;
+        //i like compiler errors i think they make debugging easier
+        //if they annoy you uh... sobbry ;-;
+        for (x in this.selections){
+            if (this.vars[x] === undefined)
+                throw new Error("Passed argument contains a non-existant collider variable: " + x);
             this.vars[x] = selections[x];
         }
     }
@@ -32,7 +34,40 @@ class Collider{
             return this.vars;
         return this.vars[varToGet];
     }
+    setEvent(xOrY, func, eventName = ""){
+        if (xOrY != COL.ON_X && xOrY != COL.ON_Y)
+            throw new Error("Invalid event. Argument for method call must be COL.ON_X or COL.ON_Y.");
+        if (typeof func != "function")
+            throw new Error("Event to execute must be a function (rip).");
+        this.vars[xOrY][eventName] = func;
+    }
+    removeEvent(xOrY, eventName = ""){
+        if (xOrY != COL.ON_X && xOrY != COL.ON_Y)
+            throw new Error("Invalid event. Argument for method call must be COL.ON_X or COL.ON_Y.");
+        if (this.vars[xOrY][eventName] === undefined)
+            throw new Error("Cannot remove event that does not exist.");
+        delete this.vars[xOrY][eventName];
+    }
+    dispatchEvent(xOrY){
+        if (xOrY != COL.ON_X && xOrY != COL.ON_Y)
+            throw new Error("Invalid event. Argument for method call must be COL.ON_X or COL.ON_Y.");
+        for (x in this.vars[xOrY])
+            this.vars[xOrY][x]();
+    }
+    //both meeting and update should probably be changed so that meeting returns a list of interacted with objects
+    //with this if two colliders overlap the second to be instantiated will not be interacted with
+    //id fix it rn but im lazy :)
     meeting(x,y){
+        let myX1 = x + this.vars[COL.W];
+        let myY1 = y + this.vars[COL.H];
+        for (obj of AllColiders){
+            let otherX0 = obj.get(COL.X);
+            let otherY0 = obj.get(COL.Y);
+            let otherX1 = otherX0 + obj.get(COL.W);
+            let otherY1 = otherY0 + obj.get(COL.H);
+            if (myX1 >= otherX0 && x <= otherX1 && myY1 >= otherY0 && y <= otherY1)
+                return obj;
+        }
         return null;
     }
     update(){
