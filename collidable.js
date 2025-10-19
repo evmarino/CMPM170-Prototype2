@@ -5,6 +5,25 @@ function clamp(x, min, max){
     return Math.max(min, Math.min(max, x));
 }
 
+/*
+Colider class is instantiated with one argument in the form of an object
+this allows arguments to be passed in any order or even admitted
+that object is allowed the following properties:
+x - the x position
+y - you'll never guess
+w - the width of the collider
+h - the hight of the collider
+dx - the velocity on the x axis
+dy - a secret :)
+on_x - an object whose values are functions to be executed when the
+    collider has a collision on the x axis; the properties that hold
+    these functions can be whatever but they must be known and sensible
+    since they are used by removeEvent() to remove... the event
+on_y - Ctrl+h x -> y wow crazy
+trigger - a bool; if true other objects will pass through this collider
+    (functions in on_x and on_y will still be called)
+*/
+
 class Collider{
     constructor (selections = {}){
         this.x = 0;
@@ -25,6 +44,20 @@ class Collider{
                 throw new Error("Please don't modify methods dynamically ;-; its mean.");
             this[x] = selections[x];
         }
+        AllColliders.push(this);
+    }
+    deactivate(){
+        for (let i in AllColliders)
+            if (AllColliders[i] == this)
+                AllColliders.splice(i,1);
+    }
+    activate(){
+        for (let i in AllColliders)
+            if (AllColliders[i] == this){
+                console.log("Please don't run activate on active colliders.")
+                return;
+            }
+        AllColliders.push(this);
     }
     set(varToSet, value, skipCheck = false){
         if (!skipCheck && this[varToSet] === undefined)
@@ -34,15 +67,15 @@ class Collider{
         this[varToSet] = value;
     }
     get(varToGet, skipCheck = false){
-        if (!skipCheck && this[varToSet] === undefined)
-            throw new Error("Collider variable doesn't exist: " + varToSet);
+        if (!skipCheck && this[varToGet] === undefined)
+            throw new Error("Collider variable doesn't exist: " + varToGet);
         return this[varToGet];
     }
     setEvent(xOrY, func, eventName = ""){
         if (xOrY != on_x && xOrY != on_y)
             throw new Error("Invalid event. Argument for method call must be on_x or on_y.");
         if (typeof func != "function")
-            throw new Error("Event to execute must be a function (rip).");
+            throw new Error("Event to execute must be a function.");
         this[xOrY][eventName] = func;
     }
     removeEvent(xOrY, eventName = ""){
@@ -53,7 +86,7 @@ class Collider{
         delete this[xOrY][eventName];
     }
     dispatchEvent(xOrY){
-        if (xOrY != on_x && xOrY != on_y)
+        if (xOrY != "on_x" && xOrY != "on_y")
             throw new Error("Invalid event. Argument for method call must be on_x or on_y.");
         for (let x in this[xOrY])
             this[xOrY][x]();
@@ -65,6 +98,8 @@ class Collider{
         let myX1 = x + this.w;
         let myY1 = y + this.h;
         for (let obj of AllColliders){
+            if (obj == this)
+                continue;
             let otherX0 = obj.get("x");
             let otherY0 = obj.get("y");
             let otherX1 = otherX0 + obj.get("w");
@@ -75,7 +110,7 @@ class Collider{
         return null;
     }
     update(){
-        let _dx = this.dy;
+        let _dx = this.dx;
         let _dy = this.dy;
         let temp = 0;
         let object = null;
@@ -90,15 +125,15 @@ class Collider{
                 this.x += temp;
             //if the object collided with is not solid
             }else if (object.get("trigger")){
-                object.dispatchEvent(on_x);
+                object.dispatchEvent("on_x");
                 this.x += temp;
             //if this object is not solid
             }else if (this.trigger){
-                this.dispatchEvent(on_x);
+                this.dispatchEvent("on_x");
             //if both objects are solid
             }else{
-                this.dispatchEvent(on_x);
-                object.dispatchEvent(on_x);
+                this.dispatchEvent("on_x");
+                object.dispatchEvent("on_x");
             }
             _dx = (_dx - temp);
             temp = clamp(_dy,-1,1);
@@ -107,15 +142,15 @@ class Collider{
                 this.y += temp;
             //if the object collided with is not solid
             }else if (object.get("trigger")){
-                object.dispatchEvent(on_y);
+                object.dispatchEvent("on_y");
                 this.y += temp;
             //if this object is not solid
             }else if (this.trigger){
-                this.dispatchEvent(on_y);
+                this.dispatchEvent("on_y");
             //if both objects are solid
             }else{
-                this.dispatchEvent(on_y);
-                object.dispatchEvent(on_y);
+                this.dispatchEvent("on_y");
+                object.dispatchEvent("on_y");
             }
             _dy = (_dy - temp);
         }

@@ -6,8 +6,6 @@ let ringRadius = 0;
 let ringGrowing = false;
 let player;
 let inputs = {
-    //technically these dont have to be set to objects yet
-    //they just have to be set to somn that isnt undef
     ['w']: {p: 0, r: 0, d: 0},
     ['a']: {p: 0, r: 0, d: 0},
     ['s']: {p: 0, r: 0, d: 0},
@@ -32,11 +30,14 @@ window.addEventListener("keydown", function(event) { if(["Space","ArrowUp","Arro
 
 function draw(){
     
+    //game logic
     handleKeys();
 
-    for (x of AllColliders)
+    for (let x of AllColliders)
         x.update();
+    player.update();
     
+    //visuals
     background(221,199,160);
     
     fill(255);
