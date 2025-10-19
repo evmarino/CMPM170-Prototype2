@@ -1,9 +1,32 @@
+//i wanted to have a sort of enum thing here
+//hella regret doing this ;-;
 const COL = Object.freeze({X: 0, Y: 1, W: 2, H: 3, DX: 4, DY: 5, TRIGGER: 6, ON_X: 7, ON_Y: 8});
-var AllColiders = [];
+var AllColliders = [];
 
 function clamp(x, min, max){
     return Math.max(min, Math.min(max, x));
 }
+
+/*
+Colider class is instantiated with one argument in the form of an object
+this allows arguments to be passed in any order or even admitted
+that object is allowed the following properties:
+COL.X - the x position
+COL.Y - you'll never guess
+COL.W - the width of the collider
+COL.H - the hight of the collider
+COL.DX - the velocity on the x axis
+COL.DY - a secret :)
+COL.ON_X - an object whose values are functions to be executed when the
+           collider has a collision on the x axis; the properties that hold
+           these functions can be whatever but they must be known and sensible
+           since they are used by removeEvent() to remove... the event
+COL.ON_Y - Ctrl+h x -> y wow crazy
+COL.TRIGGER - a bool; if true other objects will pass through this collider
+              (functions in COL.ON_X and Y will still be called)
+
+ps: please don't modify AllColliders by hand it'd hurt my feelings :(
+*/
 
 class Collider{
     constructor (selections = {}){
@@ -26,12 +49,16 @@ class Collider{
             this.vars[x] = selections[x];
         }
     }
-    set(varToSet, value){
-        this.vars[varToSet] = varToSet;
+    set(varToSet, value, skipCheck = false){
+        if (!skipCheck && this.vars[varToSet] === undefined)
+            throw new Error("Passed argument contains a non-existant collider variable: " + varToSet);
+        this.vars[varToSet] = value;
     }
-    get(varToGet = null){
+    get(varToGet = null, skipCheck = false){
         if (varToGet === null)
             return this.vars;
+        if (!skipCheck && this.vars[varToSet] === undefined)
+            throw new Error("Passed argument contains a non-existant collider variable: " + varToSet);
         return this.vars[varToGet];
     }
     setEvent(xOrY, func, eventName = ""){
@@ -60,7 +87,7 @@ class Collider{
     meeting(x,y){
         let myX1 = x + this.vars[COL.W];
         let myY1 = y + this.vars[COL.H];
-        for (obj of AllColiders){
+        for (obj of AllColliders){
             let otherX0 = obj.get(COL.X);
             let otherY0 = obj.get(COL.Y);
             let otherX1 = otherX0 + obj.get(COL.W);
