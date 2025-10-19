@@ -1,16 +1,34 @@
 let x; let y;
 
-const W = 87; const A = 65; const S = 83; const D = 68; const R = 82;
+const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
 
 let ringRadius = 0;
 let ringGrowing = false;
+let player;
+let inputs = {
+    //technically these dont have to be set to objects yet
+    //they just have to be set to somn that isnt undef
+    ['w']: {p: 0, r: 0, d: 0},
+    ['a']: {p: 0, r: 0, d: 0},
+    ['s']: {p: 0, r: 0, d: 0},
+    ['d']: {p: 0, r: 0, d: 0},
+    ['r']: {p: 0, r: 0, d: 0},
+    [' ']: {p: 0, r: 0, d: 0},
+    ['arrowright']: {p: 0, r: 0, d: 0},
+    ['arrowleft']:  {p: 0, r: 0, d: 0},
+    ['arrowup']:    {p: 0, r: 0, d: 0},
+    ['arrowdown']:  {p: 0, r: 0, d: 0},
+};
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
     x = width/2;
-    y = height/2; 
-
+    y = height/2;
+    player = new Player({x: width/2, y: width/2});
 }
+
+//disables scrolling on keypresses
+window.addEventListener("keydown", function(event) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab"].indexOf(event.code) > -1) {event.preventDefault();}}, 0);
 
 function draw(){
     
@@ -24,6 +42,7 @@ function draw(){
     fill(255);
 
     ellipse(x,y,25,25);
+    player.draw();
 
     noFill();
     stroke(0);
@@ -47,16 +66,32 @@ function draw(){
 
 }
 
+function keyPressed(event){
+    let key = event.key.toLowerCase();
+    if (inputs[key] !== undefined)
+        inputs[key] = {p: 1, r: 0, d: 1};
+}
+function keyReleased(event){
+    let key = event.key.toLowerCase();
+    if (inputs[key] !== undefined)
+        inputs[key] = {p: 0, r: 1, d: 0};
+}
+
 function handleKeys(){
 
-    if(keyIsDown(A)){ x = x - 5;}
-    if(keyIsDown(D)){ x = x + 5;}
-    if(keyIsDown(W)){ y = y - 5;}
-    if(keyIsDown(S)){ y = y + 5;}
+    if(keyIsDown(A) || keyIsDown(LEFT_ARROW )){ x = x - 5;}
+    if(keyIsDown(D) || keyIsDown(RIGHT_ARROW)){ x = x + 5;}
+    if(keyIsDown(W) || keyIsDown(UP_ARROW   )){ y = y - 5;}
+    if(keyIsDown(S) || keyIsDown(DOWN_ARROW )){ y = y + 5;}
 
-    if (keyIsDown(R)) { 
+    if (keyIsDown(R) || keyIsDown(SPACE)) { 
         ringGrowing = true;
         ringRadius = 28; 
+    }
+    
+    for (let x in inputs){
+        inputs[x].p = 0;
+        inputs[x].r = 0;
     }
 
 }

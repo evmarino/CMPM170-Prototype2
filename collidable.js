@@ -43,7 +43,7 @@ class Collider{
         };
         //i like compiler errors i think they make debugging easier
         //if they annoy you uh... sobbry ;-;
-        for (x in this.selections){
+        for (let x in selections){
             if (this.vars[x] === undefined)
                 throw new Error("Passed argument contains a non-existant collider variable: " + x);
             this.vars[x] = selections[x];
@@ -78,7 +78,7 @@ class Collider{
     dispatchEvent(xOrY){
         if (xOrY != COL.ON_X && xOrY != COL.ON_Y)
             throw new Error("Invalid event. Argument for method call must be COL.ON_X or COL.ON_Y.");
-        for (x in this.vars[xOrY])
+        for (let x in this.vars[xOrY])
             this.vars[xOrY][x]();
     }
     //both meeting and update should probably be changed so that meeting returns a list of interacted with objects
@@ -87,7 +87,7 @@ class Collider{
     meeting(x,y){
         let myX1 = x + this.vars[COL.W];
         let myY1 = y + this.vars[COL.H];
-        for (obj of AllColliders){
+        for (let obj of AllColliders){
             let otherX0 = obj.get(COL.X);
             let otherY0 = obj.get(COL.Y);
             let otherX1 = otherX0 + obj.get(COL.W);
