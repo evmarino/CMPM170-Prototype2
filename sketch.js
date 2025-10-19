@@ -1,9 +1,9 @@
-let x; let y;
+//let x; let y;
 
 //const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
 
-let ringRadius = 0;
-let ringGrowing = false;
+//let ringRadius = 0;
+//let ringGrowing = false;
 let player;
 //p is pressed and is 1 the draw frame when the key is initially pressed down
 //r is released and is 1 the draw frame the key is released
@@ -23,8 +23,8 @@ let inputs = {
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
-    x = width/2;
-    y = height/2;
+    //x = width/2;
+    //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
 }
 
@@ -35,7 +35,7 @@ function draw(){
     
     //game logic
     player.update();
-    
+
     handleKeys();
 
     for (let x of AllColliders)
@@ -44,9 +44,8 @@ function draw(){
     //visuals
     background(221,199,160);
     
-    fill(255);
-
-    ellipse(x,y,25,25);
+    //fill(255);
+    //ellipse(x,y,25,25);
     player.draw();
 
     noFill();
@@ -56,19 +55,18 @@ function draw(){
     rect(width * 0.8 , height/2, 400, 600);
     rect(width * 0.48 , height/2, 500, 200);
 
-    if (ringGrowing) {
-        noFill();
-        stroke(0);
-        strokeWeight(3);
-        ellipse(x, y, ringRadius * 2, ringRadius * 2);
-        ringRadius += RING_SPEED;
+    // if (ringGrowing) {
+    //     noFill();
+    //     stroke(0);
+    //     strokeWeight(3);
+    //     ellipse(x, y, ringRadius * 2, ringRadius * 2);
+    //     ringRadius += RING_SPEED;
 
-        if (ringRadius > RING_MAX) {
-            ringGrowing = false;
-            ringRadius = 0;
-        }
-    }
-
+    //     if (ringRadius > RING_MAX) {
+    //         ringGrowing = false;
+    //         ringRadius = 0;
+    //     }
+    // }
 }
 
 function keyPressed(event){
@@ -84,15 +82,15 @@ function keyReleased(event){
 
 function handleKeys(){
 
-    if(inputs['a'].d || inputs['arrowleft'].d) { x = x - 5;}
-    if(inputs['d'].d || inputs['arrowright'].d){ x = x + 5;}
-    if(inputs['w'].d || inputs['arrowup'].d)   { y = y - 5;}
-    if(inputs['s'].d || inputs['arrowdown'].d) { y = y + 5;}
+    // if(inputs['a'].d || inputs['arrowleft'].d) { x = x - 5;}
+    // if(inputs['d'].d || inputs['arrowright'].d){ x = x + 5;}
+    // if(inputs['w'].d || inputs['arrowup'].d)   { y = y - 5;}
+    // if(inputs['s'].d || inputs['arrowdown'].d) { y = y + 5;}
 
-    if (inputs[' '].p || inputs['r'].p) { 
-        ringGrowing = true;
-        ringRadius = 28; 
-    }
+    // if (inputs[' '].p || inputs['r'].p) { 
+    //     ringGrowing = true;
+    //     ringRadius = 28; 
+    // }
 
     for (let x in inputs){
         inputs[x].p = 0;

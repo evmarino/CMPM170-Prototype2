@@ -62,7 +62,7 @@ class Collider{
     set(varToSet, value, skipCheck = false){
         if (!skipCheck && this[varToSet] === undefined)
             throw new Error("Collider variable doesn't exist: " + varToSet);
-        if (typeof this[x] == "function")
+        if (typeof this[varToSet] == "function")
             throw new Error("Please don't modify methods dynamically ;-; its mean.");
         this[varToSet] = value;
     }
