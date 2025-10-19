@@ -79,16 +79,16 @@ function keyReleased(event){
 
 function handleKeys(){
 
-    if(keyIsDown(A) || keyIsDown(LEFT_ARROW )){ x = x - 5;}
-    if(keyIsDown(D) || keyIsDown(RIGHT_ARROW)){ x = x + 5;}
-    if(keyIsDown(W) || keyIsDown(UP_ARROW   )){ y = y - 5;}
-    if(keyIsDown(S) || keyIsDown(DOWN_ARROW )){ y = y + 5;}
+    if(inputs['a'].d || inputs['arrowleft'].d){ x = x - 5;}
+    if(inputs['d'].d || inputs['arrowright'].d){ x = x + 5;}
+    if(inputs['w'].d || inputs['arrowup'].d){ y = y - 5;}
+    if(inputs['s'].d || inputs['arrowdown'].d){ y = y + 5;}
 
-    if (keyIsDown(R) || keyIsDown(SPACE)) { 
+    if (inputs[' '].p || inputs['r'].p) { 
         ringGrowing = true;
         ringRadius = 28; 
     }
-    
+
     for (let x in inputs){
         inputs[x].p = 0;
         inputs[x].r = 0;
