@@ -11,7 +11,7 @@ y - you'll never guess
 s - the width and height of the player (since they are a circle)
 dx - the velocity on the x axis
 dy - a secret :)
-ringGroing - a bool that determines if the ring around the player is
+ringGrowing - a bool that determines if the ring around the player is
     honestly this is a good variable name u get it
 ringRadius - some kinda ring radius
 ringStartRadius - start kinda ring radius
@@ -19,7 +19,7 @@ ringStartRadius - start kinda ring radius
 
 class Player{
     constructor(selections = {}){
-        this.ringGroing = false;
+        this.ringGrowing = false;
         this.ringRadius = 0;
         this.ringStartRadius = 28;
         this.x = 0;
@@ -42,7 +42,8 @@ class Player{
         if (typeof this[x] == "function")
             throw new Error("Please don't modify methods dynamically ;-; its mean.");
         this[varToSet] = value;
-        console.log(this)
+        this.col.set("x", this.x);
+        this.col.set("y", this.y);
     }
     get(varToGet, skipCheck = false){
         if (!skipCheck && this[varToSet] === undefined)
@@ -52,6 +53,9 @@ class Player{
         return this[varToGet];
     }
     draw(){
+        this.x = this.col.get("x");
+        this.y = this.col.get("y");
+
         fill(255);
         ellipse(this.x,this.y,this.s);
         

@@ -1,10 +1,13 @@
 let x; let y;
 
-const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
+//const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
 
 let ringRadius = 0;
 let ringGrowing = false;
 let player;
+//p is pressed and is 1 the draw frame when the key is initially pressed down
+//r is released and is 1 the draw frame the key is released
+//d is down and is 1 from when p is 1 to when r is 1 not including when r is 1
 let inputs = {
     ['w']: {p: 0, r: 0, d: 0},
     ['a']: {p: 0, r: 0, d: 0},
@@ -31,11 +34,12 @@ window.addEventListener("keydown", function(event) { if(["Space","ArrowUp","Arro
 function draw(){
     
     //game logic
+    player.update();
+    
     handleKeys();
 
     for (let x of AllColliders)
         x.update();
-    player.update();
     
     //visuals
     background(221,199,160);
