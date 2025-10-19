@@ -79,10 +79,10 @@ function keyReleased(event){
 
 function handleKeys(){
 
-    if(inputs['a'].d || inputs['arrowleft'].d){ x = x - 5;}
+    if(inputs['a'].d || inputs['arrowleft'].d) { x = x - 5;}
     if(inputs['d'].d || inputs['arrowright'].d){ x = x + 5;}
-    if(inputs['w'].d || inputs['arrowup'].d){ y = y - 5;}
-    if(inputs['s'].d || inputs['arrowdown'].d){ y = y + 5;}
+    if(inputs['w'].d || inputs['arrowup'].d)   { y = y - 5;}
+    if(inputs['s'].d || inputs['arrowdown'].d) { y = y + 5;}
 
     if (inputs[' '].p || inputs['r'].p) { 
         ringGrowing = true;
