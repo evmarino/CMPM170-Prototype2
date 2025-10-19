@@ -11,20 +11,26 @@ class Player{
         this.dx = 0;
         for (let x in selections){
             if (this[x] === undefined)
-                throw new Error("Passed argument contains a non-existant player variable: " + x);
+                throw new Error("Non-existant Player variable: " + x);
+            if (typeof this[x] == "function")
+                throw new Error("Please don't modify methods dynamically ;-; its mean.");
             this[x] = selections[x];
         }
     }
     set(varToSet, value, skipCheck = false){
         if (!skipCheck && this[varToSet] === undefined)
-            throw new Error("Passed argument contains a non-existant player variable: " + varToSet);
+            throw new Error("Non-existant Player variable: " + varToSet);
+        if (typeof this[x] == "function")
+            throw new Error("Please don't modify methods dynamically ;-; its mean.");
         this[varToSet] = value;
         console.log(this)
     }
     get(varToGet, skipCheck = false){
-        if (!skipCheck && this.vars[varToSet] === undefined)
-            throw new Error("Passed argument contains a non-existant player variable: " + varToSet);
-        return this.vars[varToGet];
+        if (!skipCheck && this[varToSet] === undefined)
+            throw new Error("Non-existant Player variable: " + varToSet);
+        //you can by definition get methods through this
+        //idk why youd wanna do that but you could
+        return this[varToGet];
     }
     draw(){
         fill(255);
