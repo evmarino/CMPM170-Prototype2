@@ -35,6 +35,7 @@ class Player{
             this[x] = selections[x];
         }
         this.col = new Collider({x: this.x, y: this.y, w: this.s, h: this.s});
+        this.sHalf = this.s/2;
     }
     set(varToSet, value, skipCheck = false){
         if (!skipCheck && this[varToSet] === undefined)
@@ -58,14 +59,14 @@ class Player{
 
         fill(255);
         rectMode(CENTER);
-        ellipse(this.x+this.s/2,this.y+this.s/2,this.s);
+        ellipse(this.x+this.sHalf,this.y+this.sHalf,this.s);
         //rect(this.x,this.y,this.s);
         
         if (this.ringGrowing) {
             noFill();
             stroke(0);
             strokeWeight(3);
-            ellipse(this.x, this.y, this.ringRadius * 2, this.ringRadius * 2);
+            ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
             this.ringRadius += RING_SPEED;
 
             if (this.ringRadius > RING_MAX) {
