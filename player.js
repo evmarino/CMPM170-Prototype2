@@ -57,7 +57,9 @@ class Player{
         this.y = this.col.get("y");
 
         fill(255);
-        ellipse(this.x,this.y,this.s);
+        rectMode(CENTER);
+        ellipse(this.x+this.s/2,this.y+this.s/2,this.s);
+        //rect(this.x,this.y,this.s);
         
         if (this.ringGrowing) {
             noFill();

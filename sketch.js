@@ -5,6 +5,7 @@
 //let ringRadius = 0;
 //let ringGrowing = false;
 let player;
+let wall;
 //p is pressed and is 1 the draw frame when the key is initially pressed down
 //r is released and is 1 the draw frame the key is released
 //d is down and is 1 from when p is 1 to when r is 1 not including when r is 1
@@ -26,6 +27,8 @@ function setup(){
     //x = width/2;
     //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
+    wall = new Collider({x: 50, w: width/3, h: height/3});
+    console.log(wall.get("x"));
 }
 
 //disables scrolling on keypresses
@@ -54,6 +57,9 @@ function draw(){
     rectMode(CENTER);
     rect(width * 0.8 , height/2, 400, 600);
     rect(width * 0.48 , height/2, 500, 200);
+    rectMode(CORNERS);
+    rect(wall.get("x"), wall.get("y"), wall.get("w")+wall.get("x"), wall.get("h")+wall.get("y"))
+
 
     // if (ringGrowing) {
     //     noFill();
