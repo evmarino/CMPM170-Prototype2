@@ -5,7 +5,8 @@
 //let ringRadius = 0;
 //let ringGrowing = false;
 let player;
-let wall;
+// let wall;
+let level;
 //p is pressed and is 1 the draw frame when the key is initially pressed down
 //r is released and is 1 the draw frame the key is released
 //d is down and is 1 from when p is 1 to when r is 1 not including when r is 1
@@ -27,8 +28,17 @@ function setup(){
     //x = width/2;
     //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
-    wall = new Collider({x: 50, w: width/3, h: height/3});
-    console.log(wall.get("x"));
+    // wall = new Collider({x: 50, w: width/3, h: height/3});
+    // console.log(wall.get("x"));
+
+    const LEVEL_WIDTH = 50;
+    const LEVEL_HEIGHT = 50;
+
+    const CENTER_SIZE = 0.10;
+    const CENTER_WIDTH = LEVEL_WIDTH * CENTER_SIZE;
+    const CENTER_HEIGHT = LEVEL_HEIGHT * CENTER_SIZE;
+
+    level = new Level(50, 50, CENTER_WIDTH, CENTER_HEIGHT);
 }
 
 //disables scrolling on keypresses
@@ -46,11 +56,14 @@ function draw(){
     
     //visuals
     background(221,199,160);
+
+    level.draw();
     
     //fill(255);
     //ellipse(x,y,25,25);
     player.draw();
 
+    /*
     noFill();
     stroke(0);
     strokeWeight(3);
@@ -59,7 +72,7 @@ function draw(){
     rect(width * 0.48 , height/2, 500, 200);
     rectMode(CORNERS);
     rect(wall.get("x"), wall.get("y"), wall.get("w")+wall.get("x"), wall.get("h")+wall.get("y"))
-
+    */
 
     // if (ringGrowing) {
     //     noFill();
