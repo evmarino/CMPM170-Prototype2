@@ -1,5 +1,5 @@
 const RING_MAX = 140;
-const RING_SPEED = 4;
+const RING_SPEED = 1;
 
 /*
 Player class is instantiated with one argument in the form of an object
@@ -19,14 +19,18 @@ ringStartRadius - start kinda ring radius
 
 class Player{
     constructor(selections = {}){
-        this.ringGrowing = false;
-        this.ringRadius = 0;
-        this.ringStartRadius = 28;
+        this.ringMode = "grow";
+        this.ringRadius = 5;
+        this.ringChangeRate = 10;
+        this.newTargetRadius = 0;
+        this.ringDirection = -1;
+
         this.x = 0;
         this.y = 0;
         this.s = 25;
         this.dy = 0;
         this.dx = 0;
+
         for (let x in selections){
             if (this[x] === undefined)
                 throw new Error("Non-existant Player variable: " + x);
@@ -34,6 +38,7 @@ class Player{
                 throw new Error("Please don't modify methods dynamically ;-; its mean.");
             this[x] = selections[x];
         }
+
         this.col = new Collider({x: this.x, y: this.y, w: this.s, h: this.s});
         this.sHalf = this.s/2;
     }
@@ -60,20 +65,11 @@ class Player{
         fill(255);
         rectMode(CENTER);
         ellipse(this.x+this.sHalf,this.y+this.sHalf,this.s);
-        //rect(this.x,this.y,this.s);
-        
-        if (this.ringGrowing) {
-            noFill();
-            stroke(0);
-            strokeWeight(3);
-            ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
-            this.ringRadius += RING_SPEED;
 
-            if (this.ringRadius > RING_MAX) {
-                this.ringGrowing = false;
-                this.ringRadius = 0;
-            }
-        }
+        noFill();
+        stroke(0);
+        strokeWeight(3);
+        ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
     }
     update(){
         this.x = this.col.get("x");
@@ -84,12 +80,42 @@ class Player{
         this.dx = hmove * 5;
         this.dy = vmove * 5;
 
-        if (inputs[' '].p || inputs['r'].p) { 
-            this.ringGrowing = true;
-            this.ringRadius = this.ringStartRadius; 
+        if (this.ringRadius < RING_MAX && (inputs[' '].p || inputs['r'].p)) {
+            switch (this.ringMode) {
+                case "grow":
+                    this.ringChanging = true;
+                    this.ringDirection = 1;
+                    this.newTargetRadius = this.ringRadius + this.ringChangeRate;
+                    break;
+                case "shrink":
+                    break;
+            }
+        } else if (!this.ringChanging) {
+            switch (this.ringMode) {
+                case "grow":
+                    this.ringChanging = true;
+                    this.ringDirection = -1;
+                    this.newTargetRadius = this.ringRadius - (this.ringChangeRate / 2);
+                    break;
+                case "shrink":
+                    break;
+            }
         }
 
         this.col.set("dx", this.dx);
         this.col.set("dy", this.dy);
+
+        if (this.ringChanging) {
+            console.log(this.ringDirection);
+            this.ringRadius += this.ringDirection * RING_SPEED;
+
+            if (Math.abs(this.ringRadius - this.newTargetRadius) <= RING_SPEED) {
+                this.ringChanging = false;
+            }
+        }
+
+        if (this.ringRadius < 0) {
+            this.ringRadius = 0;
+        }
     }
 }
