@@ -1,4 +1,3 @@
-const RING_MAX = 140;
 const RING_SPEED = 1;
 
 /*
@@ -20,6 +19,9 @@ ringStartRadius - start kinda ring radius
 class Player{
     constructor(selections = {}){
         this.ringMode = "grow";
+
+        // max ring radius
+        this.ringRadiusMax = 150;
 
         // current radius of aura
         this.ringRadius = 5;
@@ -88,7 +90,7 @@ class Player{
         this.dx = hmove * 5;
         this.dy = vmove * 5;
 
-        if (this.ringRadius < RING_MAX && (inputs[' '].p || inputs['r'].p)) {
+        if (this.ringRadius < this.ringRadiusMax && (inputs[' '].p || inputs['r'].p)) {
             switch (this.ringMode) {
                 case "grow":
                     this.ringChanging = true;
