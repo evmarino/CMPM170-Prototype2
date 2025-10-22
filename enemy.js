@@ -1,11 +1,22 @@
+
+let enemies = [];
+const ENEMIESCOUNT = 10;
+const ENEMY_RADIUS = 50;
+
 class Enemy {
-  constructor(x, y) {
+  constructor(x, y, h = 10, c = 0) {
     this.x = x;
     this.y = y;
+    this.health = h;
+    this.color = c;
   }
 
   draw() {
-    fill(0);
-    ellipse(this.x + POWER_UP_RADIUS / 3, this.y + POWER_UP_RADIUS / 3, POWER_UP_RADIUS);
+    stroke(0);
+    strokeWeight(3);
+    fill(this.color);
+    console.log(this.color);
+    ellipse(this.x, this.y, ENEMY_RADIUS);
+    this.color *= 0.9;
   }
 }

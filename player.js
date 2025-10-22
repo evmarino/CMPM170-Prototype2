@@ -154,8 +154,11 @@ class Player{
     
                 let dist = dx + dy;
 
-                if (dist <= Math.pow(this.ringRadius, 2)) {
-                    enemies.splice(enemies.indexOf(e), 1);
+                if (dist <= Math.pow(this.ringRadius, 2) && (inputs['r'].p || inputs[' '].p)) {
+                    e.health --;
+                    e.color = 255;
+                    if (e.health <= 0)
+                        enemies.splice(enemies.indexOf(e), 1);
                 }
             }
         }

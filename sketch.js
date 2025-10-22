@@ -7,7 +7,6 @@
 let player;
 // let wall;
 let level;
-let powerups;
 //p is pressed and is 1 the draw frame when the key is initially pressed down
 //r is released and is 1 the draw frame the key is released
 //d is down and is 1 from when p is 1 to when r is 1 not including when r is 1
@@ -33,29 +32,23 @@ function setup(){
     walls = [
         new Collider({w:width, h:10}),
         new Collider({w:10, h:height}),
+        new Collider({x:width - 10, w:10, h:height}),
         new Collider({y:height - 10, w:width, h:10}),
-        new Collider({x:width - 10, w:10, h:height})
+        new Collider({})
     ]
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
 
-    powerups = [];
-    let powerupCount = 10;
-
-    for (let i = 0; i < powerupCount; i++) {
+    for (let i = 0; i < POWERUPCOUNT; i++) {
         let x = random(width);
         let y = random(height);
         powerups.push(new PowerUp(x, y));
     }
 
-    enemies = [];
-
-    let enemiesCount = 10;
-
-    for (let i = 0; i < enemiesCount; i++) {
+    for (let i = 0; i < ENEMIESCOUNT; i++) {
         let x = random(width);
         let y = random(height);
-        powerups.push(new Enemy(x, y));
+        enemies.push(new Enemy(x, y));
     }
 
     const LEVEL_WIDTH = 50;
@@ -88,21 +81,22 @@ function draw(){
 
     for (let pu of powerups)
         pu.draw();
+    for (let e of enemies)
+        e.draw();
     
     //fill(255);
     //ellipse(x,y,25,25);
     player.draw();
 
-    /*
-    noFill();
+    fill(255);
     stroke(0);
     strokeWeight(3);
-    rectMode(CENTER);
-    rect(width * 0.8 , height/2, 400, 600);
-    rect(width * 0.48 , height/2, 500, 200);
+    //rectMode(CENTER);
+    //rect(width * 0.8 , height/2, 400, 600);
+    //rect(width * 0.48 , height/2, 500, 200);
     rectMode(CORNERS);
-    rect(wall.get("x"), wall.get("y"), wall.get("w")+wall.get("x"), wall.get("h")+wall.get("y"))
-    */
+    for (let wall of walls)
+        rect(wall.get("x"), wall.get("y"), wall.get("w")+wall.get("x"), wall.get("h")+wall.get("y"))
 
     // if (ringGrowing) {
     //     noFill();
