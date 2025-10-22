@@ -8,6 +8,8 @@ class PowerUp {
   }
 
   draw() {
+    stroke(0);
+    strokeWeight(3);
     fill(0, 255, 0);
     ellipse(this.x + POWER_UP_RADIUS / 2, this.y + POWER_UP_RADIUS / 2, POWER_UP_RADIUS);
   }

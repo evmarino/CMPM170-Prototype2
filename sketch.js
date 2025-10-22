@@ -25,7 +25,8 @@ let inputs = {
 };
 
 function setup(){
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(1280, 720);
+    //createCanvas(windowWidth, windowHeight);
     //x = width/2;
     //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
@@ -33,7 +34,7 @@ function setup(){
     // console.log(wall.get("x"));
 
     powerups = [];
-    let powerupCount = 100;
+    let powerupCount = 10;
 
     for (let i = 0; i < powerupCount; i++) {
         let x = random(width);
@@ -43,7 +44,7 @@ function setup(){
 
     enemies = [];
 
-    let enemiesCount = 50;
+    let enemiesCount = 10;
 
     for (let i = 0; i < enemiesCount; i++) {
         let x = random(width);

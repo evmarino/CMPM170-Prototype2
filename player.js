@@ -1,5 +1,5 @@
 const RING_SPEED = 1;
-const RING_MAX_POWER_UP_INCREASE = 50;
+const RING_MAX_POWER_UP_INCREASE = 20;
 
 /*
 Player class is instantiated with one argument in the form of an object
@@ -22,7 +22,7 @@ class Player{
         this.ringMode = "grow";
 
         // max ring radius
-        this.ringRadiusMax = 150;
+        this.ringRadiusMax = 50;
 
         // current radius of aura
         this.ringRadius = 5;
@@ -73,18 +73,21 @@ class Player{
         this.x = this.col.get("x");
         this.y = this.col.get("y");
 
+        fill(255, 255, 0, 127);
+        stroke(255, 255, 0);
+        //strokeWeight(3);
+        ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
+
         fill(255);
         stroke(0);
         strokeWeight(3);
         rectMode(CENTER);
         ellipse(this.x+this.sHalf,this.y+this.sHalf,this.s);
 
-        fill(255, 255, 0, 127);
-        stroke(255, 255, 0);
-        strokeWeight(3);
-        ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
-
-        stroke(0);
+        fill(255);
+        textSize(40);
+        textAlign(LEFT,TOP);
+        text("Max Radius: " + this.ringRadiusMax,10,10);
     }
     update(){
         this.x = this.col.get("x");
@@ -146,14 +149,13 @@ class Player{
                 continue;
             }
             for (let e of enemies) {
-                // pythagorean theorem a^2 + b^2 = c^2
                 let dx = Math.pow(e.x - this.x, 2);
                 let dy = Math.pow(e.y - this.y, 2);
     
                 let dist = dx + dy;
 
                 if (dist <= Math.pow(this.ringRadius, 2)) {
-                    enemies.splice(powerups.indexOf(e), 1);
+                    enemies.splice(enemies.indexOf(e), 1);
                 }
             }
         }
