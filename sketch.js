@@ -23,9 +23,23 @@ let inputs = {
     ['arrowdown']:  {p: 0, r: 0, d: 0},
 };
 
+let state = 'menu';
+let menu;
+let mood = null;      // 'happy' or 'angry'
+let isHappy = false;  // convenience flags
+let isAngry = false;
+
+function preload(){
+    menu = new Menu();
+    menu.preload();
+}
+
+
 function setup(){
     createCanvas(1280, 720);
     //createCanvas(windowWidth, windowHeight);
+
+    menu.setup();
     //x = width/2;
     //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
@@ -65,6 +79,17 @@ function setup(){
 window.addEventListener("keydown", function(event) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab"].indexOf(event.code) > -1) {event.preventDefault();}}, 0);
 
 function draw(){
+
+    if (state === 'menu') {
+        menu.draw();
+        return;
+    }
+
+    background(mood === 'happy' ? 200 : 60)
+    fill(255)
+    textSize(32)
+    textAlign(LEFT, TOP)
+    text(`Mood: ${mood}`, 10, 10)
     
     //game logic
     player.update();
@@ -122,6 +147,18 @@ function keyReleased(event){
     if (inputs[key] !== undefined)
         inputs[key] = {p: 0, r: 1, d: 0};
 }
+function mousePressed(){
+    if (state === 'menu') {
+        menu.click(mouseX, mouseY);
+    }
+
+}
+function touchStarted(){
+    if (state === 'menu') {
+        menu.click(mouseX, mouseY);
+    }
+    return false;
+}
 
 function handleKeys(){
 
@@ -141,3 +178,4 @@ function handleKeys(){
     }
 
 }
+
