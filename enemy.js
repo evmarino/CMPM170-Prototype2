@@ -9,6 +9,17 @@ class Enemy {
     this.y = y;
     this.health = h;
     this.color = c;
+    for (let i = 0; i < AllColliders.length; i ++){
+      let x = AllColliders[i].get("x");
+      let y = AllColliders[i].get("y");
+      let w = AllColliders[i].get("w");
+      let h = AllColliders[i].get("h");
+      if (x <= this.x && x + w >= this.x && y <= this.y && y + h >= this.y){
+        this.x = random(width);
+        this.y = random(height);
+        i = 0;
+      }
+    }
   }
 
   draw() {
