@@ -32,7 +32,14 @@ function setup(){
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
 
-    powerups = [new PowerUp(width / 2 + 100, height / 2)];
+    powerups = [];
+    let powerupCount = 500;
+
+    for (let i = 0; i < powerupCount; i++) {
+        let x = random(width);
+        let y = random(height);
+        powerups.push(new PowerUp(x, y));
+    }
 
     const LEVEL_WIDTH = 50;
     const LEVEL_HEIGHT = 50;
