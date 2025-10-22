@@ -15,7 +15,6 @@ class Enemy {
     stroke(0);
     strokeWeight(3);
     fill(this.color);
-    console.log(this.color);
     ellipse(this.x, this.y, ENEMY_RADIUS);
     this.color *= 0.9;
   }

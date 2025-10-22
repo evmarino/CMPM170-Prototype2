@@ -148,18 +148,18 @@ class Player{
                 this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
                 continue;
             }
-            for (let e of enemies) {
-                let dx = Math.pow(e.x - this.x, 2);
-                let dy = Math.pow(e.y - this.y, 2);
-    
-                let dist = dx + dy;
+        }
+        for (let e of enemies) {
+            let dx = Math.pow(e.x - this.x, 2);
+            let dy = Math.pow(e.y - this.y, 2);
 
-                if (dist <= Math.pow(this.ringRadius, 2) && (inputs['r'].p || inputs[' '].p)) {
-                    e.health --;
-                    e.color = 255;
-                    if (e.health <= 0)
-                        enemies.splice(enemies.indexOf(e), 1);
-                }
+            let dist = dx + dy;
+
+            if (dist <= Math.pow(this.ringRadius, 2) && (inputs['r'].p || inputs[' '].p)) {
+                e.health --;
+                e.color = 255;
+                if (e.health <= 0)
+                    enemies.splice(enemies.indexOf(e), 1);
             }
         }
     }
