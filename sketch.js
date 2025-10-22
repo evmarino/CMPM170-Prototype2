@@ -30,6 +30,12 @@ function setup(){
     //x = width/2;
     //y = height/2;
     player = new Player({x: width/2, y: height/2 + 40});
+    walls = [
+        new Collider({w:width, h:10}),
+        new Collider({w:10, h:height}),
+        new Collider({y:height - 10, w:width, h:10}),
+        new Collider({x:width - 10, w:10, h:height})
+    ]
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
 
