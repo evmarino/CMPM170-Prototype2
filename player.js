@@ -20,9 +20,17 @@ ringStartRadius - start kinda ring radius
 class Player{
     constructor(selections = {}){
         this.ringMode = "grow";
+
+        // current radius of aura
         this.ringRadius = 5;
+
+        // the amount the ring grows each click
         this.ringChangeRate = 10;
+
+        // the new radius to animate growing to after user clicks (or aura decays)
         this.newTargetRadius = 0;
+
+        // direction of aura change (-1 for shrink, 1 for growth)
         this.ringDirection = -1;
 
         this.x = 0;
