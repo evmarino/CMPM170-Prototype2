@@ -1,4 +1,5 @@
 const RING_SPEED = 1;
+const RING_MAX_POWER_UP_INCREASE = 50;
 
 /*
 Player class is instantiated with one argument in the form of an object
@@ -73,13 +74,17 @@ class Player{
         this.y = this.col.get("y");
 
         fill(255);
+        stroke(0);
+        strokeWeight(3);
         rectMode(CENTER);
         ellipse(this.x+this.sHalf,this.y+this.sHalf,this.s);
 
-        noFill();
-        stroke(0);
+        fill(255, 255, 0, 127);
+        stroke(255, 255, 0);
         strokeWeight(3);
         ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
+
+        stroke(0);
     }
     update(){
         this.x = this.col.get("x");
@@ -116,7 +121,6 @@ class Player{
         this.col.set("dy", this.dy);
 
         if (this.ringChanging) {
-            console.log(this.ringDirection);
             this.ringRadius += this.ringDirection * RING_SPEED;
 
             if (Math.abs(this.ringRadius - this.newTargetRadius) <= RING_SPEED) {
@@ -126,6 +130,21 @@ class Player{
 
         if (this.ringRadius < 0) {
             this.ringRadius = 0;
+        }
+
+        // loop over powerups on screen and check collision
+        for (let pu of powerups) {
+            // pythagorean theorem a^2 + b^2 = c^2
+            let dx = Math.pow(pu.x - this.x, 2);
+            let dy = Math.pow(pu.y - this.y, 2);
+
+            let dist = dx + dy;
+
+            if (dist <= Math.pow(this.ringRadius, 2)) {
+                powerups.splice(powerups.indexOf(pu), 1);
+                this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
+                continue;
+            }
         }
     }
 }

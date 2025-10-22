@@ -7,7 +7,7 @@
 let player;
 // let wall;
 let level;
-let powerup;
+let powerups;
 //p is pressed and is 1 the draw frame when the key is initially pressed down
 //r is released and is 1 the draw frame the key is released
 //d is down and is 1 from when p is 1 to when r is 1 not including when r is 1
@@ -32,7 +32,7 @@ function setup(){
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
 
-    powerup = new PowerUp(width / 2 + 100, height / 2);
+    powerups = [new PowerUp(width / 2 + 100, height / 2)];
 
     const LEVEL_WIDTH = 50;
     const LEVEL_HEIGHT = 50;
@@ -62,7 +62,8 @@ function draw(){
 
     level.draw();
 
-    powerup.draw();
+    for (let pu of powerups)
+        pu.draw();
     
     //fill(255);
     //ellipse(x,y,25,25);
