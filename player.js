@@ -145,6 +145,17 @@ class Player{
                 this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
                 continue;
             }
+            for (let e of enemies) {
+                // pythagorean theorem a^2 + b^2 = c^2
+                let dx = Math.pow(pu.x - this.x, 2);
+                let dy = Math.pow(pu.y - this.y, 2);
+    
+                let dist = dx + dy;
+
+                if (dist <= Math.pow(this.ringRadius, 2)) {
+                    powerups.splice(powerups.indexOf(pu), 1);
+                }
+            }
         }
     }
 }

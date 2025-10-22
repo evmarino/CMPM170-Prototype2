@@ -33,12 +33,22 @@ function setup(){
     // console.log(wall.get("x"));
 
     powerups = [];
-    let powerupCount = 500;
+    let powerupCount = 100;
 
     for (let i = 0; i < powerupCount; i++) {
         let x = random(width);
         let y = random(height);
         powerups.push(new PowerUp(x, y));
+    }
+
+    enemies = [];
+
+    let enemiesCount = 50;
+
+    for (let i = 0; i < enemiesCount; i++) {
+        let x = random(width);
+        let y = random(height);
+        powerups.push(new Enemy(x, y));
     }
 
     const LEVEL_WIDTH = 50;
