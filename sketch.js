@@ -1,3 +1,5 @@
+const DEBUGIMAGESKIP = false;
+let gameover;
 //let x; let y;
 
 //const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
@@ -27,11 +29,13 @@ let state = 'menu';
 let menu;
 let mood = null;      // 'happy' or 'angry'
 let isHappy = true;  // convenience flags
-let isAngry = false;
 
 function preload(){
     menu = new Menu();
     menu.preload();
+    if (DEBUGIMAGESKIP)
+        return;
+    gameover = loadImage('./Assets/GameOverScreen.png');
 }
 
 
@@ -68,7 +72,7 @@ function setup(){
     for (let i = 0; i < ENEMIESCOUNT; i++) {
         let x = random(width);
         let y = random(height);
-        enemies.push(new Enemy(x, y));
+        enemies.push(new Enemy(x, y, 10 * (!isHappy)));
     }
 
     const LEVEL_WIDTH = 50;

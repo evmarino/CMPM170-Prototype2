@@ -14,8 +14,8 @@ class Menu {
   }
 
   preload() {
-
-    
+    if (DEBUGIMAGESKIP)
+      return;
     this.bg    = loadImage('./Assets/title.png');
     this.happy = loadImage('./Assets/happybutton.png');
     this.angry = loadImage('./Assets/angrybutton.png');
@@ -35,13 +35,21 @@ class Menu {
   }
 
   draw() {
+    if (DEBUGIMAGESKIP){
+      fill(255);            
+      stroke(0);        
+      strokeWeight(3);
+      rect(this.xL, this.y, this.btnSize);
+      rect(this.xR, this.y, this.btnSize);
+    }else{
     
-    if (this.bg) image(this.bg, width/2, height/2, width, height);
-    else background(30);
+      if (this.bg) image(this.bg, width/2, height/2, width, height);
+      else background(30);
 
-    // buttons
-    if (this.happy) image(this.happy, this.xL, this.y, this.btnSize, this.btnSize);
-    if (this.angry) image(this.angry, this.xR, this.y, this.btnSize, this.btnSize);
+      // buttons
+      if (this.happy) image(this.happy, this.xL, this.y, this.btnSize, this.btnSize);
+      if (this.angry) image(this.angry, this.xR, this.y, this.btnSize, this.btnSize);
+    }
 
     // title
     fill(0)
@@ -76,9 +84,13 @@ class Menu {
                     my >= this.y - half && my <= this.y + half;
 
     if (inHappy) {
-     mood = 'happy'; isHappy = true; isAngry = false; state = 'game';
+      mood = 'happy'; 
+      isHappy = true; 
+      state = 'game';
     } else if (inAngry) {
-     mood = 'angry'; isHappy = false; isAngry = true; state = 'game';
+      mood = 'angry'; 
+      isHappy = false; 
+      state = 'game';
     }
   }
 
