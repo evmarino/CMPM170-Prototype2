@@ -49,12 +49,10 @@ class Menu {
     if (inHappy) {
       mood = 'happy';
       isHappy = true;
-      isAngry = false;
       state = 'game';
     } else if (inAngry) {
       mood = 'angry';
       isHappy = false;
-      isAngry = true;
       state = 'game';
     }
   }
