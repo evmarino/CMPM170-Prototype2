@@ -1,4 +1,4 @@
-const DEBUGIMAGESKIP = true;
+const DEBUGIMAGESKIP = false;
 let gameover;
 //let x; let y;
 
