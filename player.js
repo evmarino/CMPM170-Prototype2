@@ -70,19 +70,18 @@ class Player{
         return this[varToGet];
     }
     draw(){
-        this.x = this.col.get("x");
-        this.y = this.col.get("y");
+        this.x = this.col.get("x")+this.sHalf;
+        this.y = this.col.get("y")+this.sHalf;
 
         fill(255, 255, 0, 127);
         stroke(255, 255, 0);
         //strokeWeight(3);
-        ellipse(this.x+this.sHalf, this.y+this.sHalf, this.ringRadius * 2, this.ringRadius * 2);
+        ellipse(this.x, this.y, this.ringRadius * 2, this.ringRadius * 2);
 
         fill(255);
         stroke(0);
         strokeWeight(3);
-        rectMode(CENTER);
-        ellipse(this.x+this.sHalf,this.y+this.sHalf,this.s);
+        ellipse(this.x,this.y,this.s);
 
         fill(255);
         textSize(40);
@@ -90,8 +89,8 @@ class Player{
         text("Max Radius: " + this.ringRadiusMax,10,10);
     }
     update(){
-        this.x = this.col.get("x");
-        this.y = this.col.get("y");
+        this.x = this.col.get("x")+this.sHalf;
+        this.y = this.col.get("y")+this.sHalf;
 
         let hmove = (inputs['d'].d || inputs['arrowright'].d) - (inputs['a'].d || inputs['arrowleft'].d);
         let vmove = (inputs['s'].d || inputs['arrowdown'].d) - (inputs['w'].d || inputs['arrowup'].d);
@@ -145,7 +144,7 @@ class Player{
 
             if (dist <= Math.pow(this.ringRadius, 2)) {
                 powerups.splice(powerups.indexOf(pu), 1);
-                if (this.isDebuff)
+                if (pu.isDebuff)
                     ;
                 else
                     this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
