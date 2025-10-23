@@ -27,6 +27,7 @@ let state = 'menu';
 let menu;
 let mood = null;      // 'happy' or 'angry'
 let isHappy = true;  // convenience flags
+let isAngry = false;
 
 function preload(){
     menu = new Menu();
@@ -153,7 +154,7 @@ function keyReleased(event){
         inputs[key] = {p: 0, r: 1, d: 0};
 }
 function mousePressed(){
-    if (state === 'menu') {
+    if (state === 'menu' && menu) menu.click(mouseX, mouseY);{
         menu.click(mouseX, mouseY);
     }
 

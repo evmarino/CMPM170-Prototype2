@@ -14,13 +14,14 @@ class Menu {
   }
 
   preload() {
+
+    
     this.bg    = loadImage('./Assets/title.png');
     this.happy = loadImage('./Assets/happybutton.png');
     this.angry = loadImage('./Assets/angrybutton.png');
   }
 
   setup() {
-    createCanvas(windowWidth, windowHeight); 
     textAlign(CENTER, CENTER);
     imageMode(CENTER);
     noStroke();
@@ -81,8 +82,8 @@ class Menu {
     }
   }
 
-  windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    this.layout();
-  }
+  //windowResized() {
+   // resizeCanvas(windowWidth, windowHeight);
+    //this.layout();
+ //}
 }
