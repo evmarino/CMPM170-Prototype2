@@ -19,6 +19,8 @@ class Menu {
     this.bg    = loadImage('./Assets/title.png');
     this.happy = loadImage('./Assets/happybutton.png');
     this.angry = loadImage('./Assets/angrybutton.png');
+    this.happyMusic = loadSound('./Assets/heroic-hypercycle-355496.mp3')
+    this.angryMusic = loadSound('./Assets/heavy-cyberpunk-metal-188529.mp3')
   }
 
   setup() {
@@ -87,10 +89,12 @@ class Menu {
       mood = 'happy'; 
       isHappy = true; 
       state = 'game';
+      this.happyMusic.play();
     } else if (inAngry) {
       mood = 'angry'; 
       isHappy = false; 
       state = 'game';
+      this.angryMusic.play();
     }
     
     for (let i = 0; (inHappy || inAngry) && i < POWERUPCOUNT; i++) {

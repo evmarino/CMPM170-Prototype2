@@ -161,6 +161,7 @@ class Player{
                 e.health --;
                 e.color = 255;
                 if (e.health <= 0){
+                    expolsion.play()
                     enemies.splice(enemies.indexOf(e), 1);
                     this.ringRadiusMax += floor(RING_MAX_POWER_UP_INCREASE * 2 / 3);
                 }

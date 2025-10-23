@@ -1,5 +1,6 @@
 const DEBUGIMAGESKIP = false;
 let gameover;
+let expolsion;
 //let x; let y;
 
 //const W = 87; const A = 65; const S = 83; const D = 68; const R = 82; const SPACE = 32;
@@ -36,6 +37,7 @@ function preload(){
     if (DEBUGIMAGESKIP)
         return;
     gameover = loadImage('./Assets/GameOverScreen.png');
+    expolsion = loadSound('./Assets/medium-explosion-40472.mp3');
 }
 
 
