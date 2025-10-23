@@ -1,7 +1,7 @@
 
 let enemies = [];
 const ENEMIESCOUNT = 10;
-const ENEMY_RADIUS = 50;
+const ENEMY_DIAMETER = 50;
 
 class Enemy {
   constructor(x, y, h = 10, c = 0) {
@@ -26,7 +26,7 @@ class Enemy {
     stroke(0);
     strokeWeight(3);
     fill(this.color);
-    ellipse(this.x, this.y, ENEMY_RADIUS);
+    ellipse(this.x, this.y, ENEMY_DIAMETER);
     this.color *= 0.9;
   }
 }

@@ -86,7 +86,7 @@ class Player{
         fill(255);
         textSize(40);
         textAlign(LEFT,TOP);
-        text("Max Radius: " + this.ringRadiusMax,10,10);
+        text("Aura: " + this.ringRadiusMax,10,10);
     }
     update(){
         this.x = this.col.get("x")+this.sHalf;
@@ -145,7 +145,7 @@ class Player{
             if (dist <= Math.pow(this.ringRadius, 2)) {
                 powerups.splice(powerups.indexOf(pu), 1);
                 if (pu.isDebuff)
-                    ;
+                    this.ringRadiusMax -= floor(RING_MAX_POWER_UP_INCREASE / 3);
                 else
                     this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
                 continue;
@@ -160,9 +160,14 @@ class Player{
             if (dist <= Math.pow(this.ringRadius, 2) && (inputs['r'].p || inputs[' '].p)) {
                 e.health --;
                 e.color = 255;
-                if (e.health <= 0)
+                if (e.health <= 0){
                     enemies.splice(enemies.indexOf(e), 1);
+                    this.ringRadiusMax += floor(RING_MAX_POWER_UP_INCREASE * 2 / 3);
+                }
             }
+            if (dist <= pow(this.sHalf + ENEMY_DIAMETER/2, 2))
+                this.ringRadiusMax -= floor(RING_MAX_POWER_UP_INCREASE / 3);
+            
         }
     }
 }
