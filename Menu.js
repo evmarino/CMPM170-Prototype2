@@ -75,9 +75,9 @@ class Menu {
                     my >= this.y - half && my <= this.y + half;
 
     if (inHappy) {
-      mood = 'happy'; isHappy = true; isAngry = false; state = 'game';
+     mood = 'happy'; isHappy = true; isAngry = false; state = 'game';
     } else if (inAngry) {
-      mood = 'angry'; isHappy = false; isAngry = true; state = 'game';
+     mood = 'angry'; isHappy = false; isAngry = true; state = 'game';
     }
   }
 

@@ -26,8 +26,7 @@ let inputs = {
 let state = 'menu';
 let menu;
 let mood = null;      // 'happy' or 'angry'
-let isHappy = false;  // convenience flags
-let isAngry = false;
+let isHappy = true;  // convenience flags
 
 function preload(){
     menu = new Menu();
@@ -53,10 +52,16 @@ function setup(){
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
 
-    for (let i = 0; i < POWERUPCOUNT; i++) {
+
+    for (let i = 0; isHappy && i < POWERUPCOUNT; i++) {
         let x = random(width);
         let y = random(height);
         powerups.push(new PowerUp(x, y));
+    }
+    for (let i = 0; !isHappy && i < POWERUPCOUNT; i++) {
+        let x = random(width);
+        let y = random(height);
+        powerups.push(new Debuff(x, y));
     }
 
     for (let i = 0; i < ENEMIESCOUNT; i++) {
