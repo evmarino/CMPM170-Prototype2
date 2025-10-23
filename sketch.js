@@ -100,8 +100,10 @@ function draw(){
 
     for (let pu of powerups)
         pu.draw();
-    for (let e of enemies)
+    for (let e of enemies) {
+        e.update();
         e.draw();
+    }
     
     //fill(255);
     //ellipse(x,y,25,25);

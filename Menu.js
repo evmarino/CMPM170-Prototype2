@@ -106,7 +106,7 @@ class Menu {
     for (let i = 0; (inHappy || inAngry) && i < ENEMIESCOUNT; i++) {
       let x = random(width);
       let y = random(height);
-      enemies.push(new Enemy(x, y, 10 * (!isHappy)));
+      enemies.push(new Enemy(x, y, 10 * (!isHappy), 0, 1 + (3 * (!isHappy))));
     }
     
   }
