@@ -145,7 +145,10 @@ class Player{
 
             if (dist <= Math.pow(this.ringRadius, 2)) {
                 powerups.splice(powerups.indexOf(pu), 1);
-                this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
+                if (this.isDebuff)
+                    ;
+                else
+                    this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
                 continue;
             }
         }

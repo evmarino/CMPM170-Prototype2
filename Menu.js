@@ -39,8 +39,8 @@ class Menu {
       fill(255);            
       stroke(0);        
       strokeWeight(3);
-      rect(this.xL, this.y, this.btnSize);
-      rect(this.xR, this.y, this.btnSize);
+      rect(this.xL-this.btnSize/2, this.y-this.btnSize/2, this.btnSize);
+      rect(this.xR-this.btnSize/2, this.y-this.btnSize/2, this.btnSize);
     }else{
     
       if (this.bg) image(this.bg, width/2, height/2, width, height);
@@ -92,6 +92,19 @@ class Menu {
       isHappy = false; 
       state = 'game';
     }
+    
+    for (let i = 0; (inHappy || inAngry) && i < POWERUPCOUNT; i++) {
+      let x = random(width);
+      let y = random(height);
+      console.log(floor(random(2 * !isHappy)));
+      powerups.push(new PowerUp(x, y, floor(random(2 * !isHappy))));
+    }
+    for (let i = 0; (inHappy || inAngry) && i < ENEMIESCOUNT; i++) {
+      let x = random(width);
+      let y = random(height);
+      enemies.push(new Enemy(x, y, 10 * (!isHappy)));
+    }
+    
   }
 
   //windowResized() {

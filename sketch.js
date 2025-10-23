@@ -1,4 +1,4 @@
-const DEBUGIMAGESKIP = false;
+const DEBUGIMAGESKIP = true;
 let gameover;
 //let x; let y;
 
@@ -56,24 +56,6 @@ function setup(){
     ]
     // wall = new Collider({x: 50, w: width/3, h: height/3});
     // console.log(wall.get("x"));
-
-
-    for (let i = 0; isHappy && i < POWERUPCOUNT; i++) {
-        let x = random(width);
-        let y = random(height);
-        powerups.push(new PowerUp(x, y));
-    }
-    for (let i = 0; !isHappy && i < POWERUPCOUNT; i++) {
-        let x = random(width);
-        let y = random(height);
-        powerups.push(new Debuff(x, y));
-    }
-
-    for (let i = 0; i < ENEMIESCOUNT; i++) {
-        let x = random(width);
-        let y = random(height);
-        enemies.push(new Enemy(x, y, 10 * (!isHappy)));
-    }
 
     const LEVEL_WIDTH = 50;
     const LEVEL_HEIGHT = 50;
@@ -157,16 +139,14 @@ function keyReleased(event){
     if (inputs[key] !== undefined)
         inputs[key] = {p: 0, r: 1, d: 0};
 }
-function mousePressed(){
-    if (state === 'menu' && menu) menu.click(mouseX, mouseY);{
+function mouseReleased(){
+    if (state === 'menu' && menu) 
         menu.click(mouseX, mouseY);
-    }
 
 }
 function touchStarted(){
-    if (state === 'menu') {
+    if (state === 'menu')
         menu.click(mouseX, mouseY);
-    }
     return false;
 }
 
