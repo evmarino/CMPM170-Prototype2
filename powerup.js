@@ -1,6 +1,6 @@
 let powerups = [];
 let debuff = [];
-const POWERUPCOUNT = 10;
+const POWERUPCOUNT = 30;
 const DEBUFFCOUNT = 10;
 const POWER_UP_RADIUS = 25;
 

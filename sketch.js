@@ -37,6 +37,7 @@ function preload(){
     if (DEBUGIMAGESKIP)
         return;
     gameover = loadImage('./Assets/GameOverScreen.png');
+    gamewon = loadImage('./Assets/WinScreen.png');
     expolsion = loadSound('./Assets/medium-explosion-40472.mp3');
 }
 
@@ -73,17 +74,20 @@ function setup(){
 window.addEventListener("keydown", function(event) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab"].indexOf(event.code) > -1) {event.preventDefault();}}, 0);
 
 function draw(){
-
-    if (state === 'menu') {
-        menu.draw();
+    //do before drawing background so the last frame isnt cleared
+    switch (state){
+        case 'menu':
+            menu.draw();
+        return;
+        case 'win':
+            imageMode(CORNER);
+            image(gamewon,0,0);
+        return;
+        case 'lose':
+            imageMode(CORNER);
+            image(gameover,0,0);
         return;
     }
-
-    background(mood === 'happy' ? 200 : 60)
-    fill(255)
-    textSize(32)
-    textAlign(LEFT, TOP)
-    text(`Mood: ${mood}`, 10, 10)
     
     //game logic
     player.update();
@@ -94,7 +98,17 @@ function draw(){
         x.update();
     
     //visuals
-    background(221,199,160);
+    //idk who added this but it was all being drawn over
+    //rippage and o7 but at least it works now lol
+    //background(mood === 'happy' ? 200 : 60)
+    if (isHappy)
+        background(221,199,160);
+    else
+        background(60);
+    fill(255);
+    textSize(40);
+    textAlign(LEFT, TOP);
+    text(`Mood: ${mood.toUpperCase()}`, 10, 50);
 
     level.draw();
 

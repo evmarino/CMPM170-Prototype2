@@ -41,6 +41,7 @@ class Player{
         this.s = 25;
         this.dy = 0;
         this.dx = 0;
+        this.hurtT = 0;
 
         for (let x in selections){
             if (this[x] === undefined)
@@ -78,7 +79,7 @@ class Player{
         //strokeWeight(3);
         ellipse(this.x, this.y, this.ringRadius * 2, this.ringRadius * 2);
 
-        fill(255);
+        fill(255 * (this.hurtT%2 < 1));
         stroke(0);
         strokeWeight(3);
         ellipse(this.x,this.y,this.s);
@@ -89,6 +90,7 @@ class Player{
         text("Aura: " + this.ringRadiusMax,10,10);
     }
     update(){
+        this.hurtT = max(this.hurtT - 0.25, 0);
         this.x = this.col.get("x")+this.sHalf;
         this.y = this.col.get("y")+this.sHalf;
 
@@ -145,9 +147,9 @@ class Player{
             if (dist <= Math.pow(this.ringRadius, 2)) {
                 powerups.splice(powerups.indexOf(pu), 1);
                 if (pu.isDebuff)
-                    this.ringRadiusMax -= floor(RING_MAX_POWER_UP_INCREASE / 3);
+                this.modRingRadius(this.ringRadiusMax - floor(max(this.ringRadiusMax / 3, RING_MAX_POWER_UP_INCREASE)));
                 else
-                    this.ringRadiusMax += RING_MAX_POWER_UP_INCREASE;
+                    this.modRingRadius(this.ringRadiusMax + RING_MAX_POWER_UP_INCREASE);
                 continue;
             }
         }
@@ -164,12 +166,20 @@ class Player{
                     expolsion.play();
                     enemies.splice(enemies.indexOf(e), 1);
                     e.removeFromMap();
-                    this.ringRadiusMax += floor(RING_MAX_POWER_UP_INCREASE * 2 / 3);
+                    this.modRingRadius(this.ringRadiusMax + floor(RING_MAX_POWER_UP_INCREASE * 2 / 3));
                 }
             }
-            if (dist <= pow(this.sHalf + ENEMY_DIAMETER/2, 2))
-                this.ringRadiusMax -= floor(RING_MAX_POWER_UP_INCREASE / 3);
-            
+            if (!this.hurtT && dist <= pow(this.sHalf + ENEMY_DIAMETER/2, 2)){
+                this.modRingRadius(this.ringRadiusMax - floor(max(this.ringRadiusMax / 3, RING_MAX_POWER_UP_INCREASE)));
+                this.hurtT = 24 / (1 + isHappy);
+            }
         }
+        if (enemies.length == 0 && (powerups.length == 0 || !isHappy))
+            state = 'win';
+    }
+    modRingRadius(num){
+        if (this.ringRadiusMax <= 0)
+            state = 'lose';
+        this.ringRadiusMax = num;
     }
 }
